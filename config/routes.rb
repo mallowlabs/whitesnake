@@ -1,7 +1,7 @@
 Whitesnake::Application.routes.draw do
-  get "sessions/create"
-  get "sessions/failure"
-  get "sessions/destroy"
+  get '/auth/:provider/callback' => 'sessions#create'
+  get '/auth/failure' => 'sessions#failure'
+  get '/logout' => 'sessions#destroy', as: :logout
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
