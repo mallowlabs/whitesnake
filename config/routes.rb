@@ -1,6 +1,8 @@
 Whitesnake::Application.routes.draw do
-  get "users/show"
-  get "top/show"
+  root to: 'top#show'
+
+  resource :user, only: [ :show ]
+
   get '/auth/:provider/callback' => 'sessions#create'
   get '/auth/failure' => 'sessions#failure'
   get '/logout' => 'sessions#destroy', as: :logout
