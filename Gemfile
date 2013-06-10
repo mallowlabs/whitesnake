@@ -51,5 +51,5 @@ end
 # gem 'debugger', group: [:development, :test]
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2.14.0.rc1'
 end
