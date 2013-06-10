@@ -3,7 +3,9 @@ Whitesnake::Application.routes.draw do
 
   resource :user, only: [ :show ]
 
-  get '/auth/:provider/callback' => 'sessions#create'
-  get '/auth/failure' => 'sessions#failure'
-  get '/logout' => 'sessions#destroy', as: :logout
+  controller :sessions do
+    get '/auth/:provider/callback' => :create
+    get '/auth/failure' => :failure
+    get '/logout' => :destroy, as: :logout
+  end
 end
