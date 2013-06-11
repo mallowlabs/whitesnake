@@ -1,5 +1,13 @@
 Whitesnake::Application.routes.draw do
-  get '/auth/:provider/callback' => 'sessions#create'
-  get '/auth/failure' => 'sessions#failure'
-  get '/logout' => 'sessions#destroy', as: :logout
+  root to: 'top#show'
+
+  get '/login' => redirect('/auth/github'), :as => :login
+
+  resource :user, only: [ :show ]
+
+  controller :sessions do
+    get '/auth/:provider/callback' => :create
+    get '/auth/failure' => :failure
+    get '/logout' => :destroy, as: :logout
+  end
 end
