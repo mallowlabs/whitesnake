@@ -3,4 +3,6 @@ p Find me in app/views/users/show.html.slim
 - current_user.each_repository do |repo|
   ul
     li
-      = repo[:full_name]
+      = link_to repo[:full_name], repo[:html_url]
+      p.description
+        = repo[:description]
