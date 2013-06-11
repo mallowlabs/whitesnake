@@ -1,6 +1,8 @@
 Whitesnake::Application.routes.draw do
   root to: 'top#show'
 
+  get '/login' => redirect('/auth/github'), :as => :login
+
   resource :user, only: [ :show ]
 
   controller :sessions do
