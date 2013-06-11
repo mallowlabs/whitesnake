@@ -1,2 +1,6 @@
 h1 Users#show
 p Find me in app/views/users/show.html.slim
+- current_user.each_repository do |repo|
+  ul
+    li
+      = repo[:full_name]
