@@ -1,8 +1,10 @@
 h1 Users#show
 p Find me in app/views/users/show.html.slim
-- current_user.each_repository do |repo|
-  ul
-    li
-      = link_to repo[:full_name], repo[:html_url]
-      p.description
-        = repo[:description]
+table.table.table-striped
+  tbody
+    - current_user.each_repository do |repo|
+      tr
+        td= link_to repo[:full_name], repo[:html_url], rel: 'tooltip', title: repo[:description]
+        td
+          .switch.switch-mini
+            input[type="checkbox"]
