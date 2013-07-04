@@ -32,6 +32,8 @@ gem 'jbuilder', '~> 1.0.1'
 
 gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
 
+gem 'octokit'
+
 gem 'settingslogic'
 
 gem 'dotenv'

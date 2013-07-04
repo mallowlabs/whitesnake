@@ -2,6 +2,10 @@ class Settings < Settingslogic
   source Rails.root.join('config/settings.yml')
   namespace Rails.env
 
+  def self.github_web_endpoint
+    "https://#{github.host}/"
+  end
+
   def self.github_api_endpoint
     "https://#{github.host}/api/v3"
   end
