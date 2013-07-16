@@ -6,5 +6,7 @@ table.table.table-striped
       tr
         td= link_to repo[:full_name], repo[:html_url], rel: 'tooltip', title: repo[:description]
         td
-          .switch.switch-mini
-            input type="checkbox" class="repository-status hidden" data-repository-name=repo[:full_name]
+          = form_tag repository_job_path(repo[:name]), id: "repository-#{repo[:name]}", class: 'repository-form', remote: true do
+            i.icon-spinner.icon-spin.icon-large.pull-right.hidden
+            .switch.switch-mini.hidden.pull-right
+              input type="checkbox" data-form-id="repository-#{repo[:name]}"

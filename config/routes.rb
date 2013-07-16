@@ -5,6 +5,10 @@ Whitesnake::Application.routes.draw do
 
   resource :user, only: [ :show ]
 
+  resources :repositories, only: [] do
+    resource :job, only: [ :create, :show, :destroy ]
+  end
+
   controller :sessions do
     get '/auth/:provider/callback' => :create
     get '/auth/failure' => :failure
