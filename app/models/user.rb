@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
     octokit_client.repositories(self.name).each(&block)
   end
 
+  def repository(name)
+    octokit_client.repository(owner: self.name, repo: name)
+  end
+
   private
 
   def update_credentials(credentials)

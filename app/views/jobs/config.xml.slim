@@ -1,0 +1,134 @@
+doctype xml
+project
+  actions/
+  description
+  keepDependencies
+    | false
+  properties
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.5">
+      projectUrl = repository[:html_url]
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  scm class="hudson.plugins.git.GitSCM" plugin="git@1.3.0"
+    configVersion
+      | 2
+    userRemoteConfig
+      <hudson.plugins.git.UserRemoteConfig>
+        name
+        refspec
+        url = repository[:ssh_url]
+      </hudson.plugins.git.UserRemoteConfig>
+    branches
+      <hudson.plugins.git.BranchSpec>
+        / TODO: substitute specified branch name
+        name = 'master'
+      </hudson.plugins.git.BranchSpec>
+    disableSubmodules
+      | false
+    recursiveSubmodules
+      | false
+    doGenerateSubmoduleConfigurations
+      | false
+    authorOrCommitter
+      | false
+    clean
+      | false
+    wipeOutWorkspace
+      | false
+    pruneBranches
+      | false
+    remotePoll
+      | false
+    ignoreNotifyCommit
+      | false
+    useShallowClone
+      | false
+    buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/
+    gitTool
+      | System Git
+    browser class="hudson.plugins.git.browser.GithubWeb"
+      url = repository[:html_url]
+    submoduleCfg class="list"/
+    relativeTargetDir
+    reference
+    excludedRegions
+    excludedUsers
+    gitConfigName
+    gitConfigEmail
+    skipTag
+      | false
+    includedRegions
+    scmName
+  / TODO: substitute label expression
+  assignedNode = 'master'
+  canRoam
+    | false
+  disabled
+    | false
+  blockBuildWhenDownstreamBuilding
+    | false
+  blockBuildWhenUpstreamBuilding
+    | false
+  triggers class="vector"
+    - if false
+      <hudson.triggers.TimerTrigger>
+        spec = timmer_trigger_spec
+      </hudson.triggers.TimerTrigger>
+    <hudson.triggers.SCMTrigger>
+      spec
+        | * * * * *
+      ignorePostCommitHooks
+        | false
+    </hudson.triggers.SCMTrigger>
+  concurrentBuild
+    | false
+  builders
+    <hudson.tasks.Shell>
+      command
+        = 'before_script'
+        = 'script'
+        = 'after_script'
+    </hudson.tasks.Shell>
+  publishers
+    - if false
+      <hudson.publishers.rubyMetrics.rcov.RcovPublisher plugin="rubyMetrics@1.5.0">
+        reportDir
+          = rcov_report_directory
+        targets
+          - each_rcov_metric_target do |metric_target|
+            hudson.plugins.rubyMetrics.rcov.model.MetricTarget
+              metric = metric_target.metric
+              healthy = metric_target.healthy
+              unhealthy = metric_target.unhealthy
+              unstable = metric_target.unstable
+      </hudson.publishers.rubyMetrics.rcov.RcovPublisher>
+    - if false
+      ruby-proxy-object
+        ruby-object ruby-class="Jenkins::Tasks::PublisherProxy" pluginid="jenkins-hipchat-publisher-ckpd"
+          pluginid ruby-class="String" pluginid="jenkins-hipchat-publisher-ckpd"
+            | jenkins-hipchat-publisher-ckpd
+          object ruby-class="HipchatPublisher" pluginid="jenkins-hipchat-publisher-ckpd"
+            exclude__success ruby-class="FalseClass" pluginid="jenkins-hipchat-publisher-ckpd"
+              | false
+            mention ruby-class="TrueClass" pluginid="jenkins-hipchat-publisher-ckpd"
+              | true
+            room ruby-class="String" pluginid="jenkins-hipchat-publisher-ckpd"
+              = hipchat_publisher_cookpad.room
+            token ruby-class="String" pluginid="jenkins-hipchat-publisher-ckpd"
+              = hipchat_publisher_cookpad.token
+  buildWrappers
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.11">
+      timeoutMinutes
+        | 10
+      failBuild
+        | false
+      writingDescription
+        | false
+      timeoutPercentage
+        | 0
+      timeoutType
+        | absolute
+      timeoutMinutesElasticDefault
+        | 3
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.3" />
+    <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.2.2-SNAPSHOT" />
