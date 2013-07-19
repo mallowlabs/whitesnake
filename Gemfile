@@ -61,4 +61,15 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.0.rc1'
   gem 'factory_girl_rails', '~> 4.0.0'
+
+  gem 'rb-fsevent', require: false if RUBY_PLATFORM =~ /darwin/i
+
+  gem 'guard-bundler'
+  gem 'guard-rails'
+  gem 'guard-rspec'
+
+  gem 'guard-livereload'
+  gem 'rack-livereload'
+
+  gem 'spring'
 end
