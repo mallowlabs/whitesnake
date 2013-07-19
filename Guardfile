@@ -13,7 +13,7 @@ guard 'rails', port: (ENV['RAILS_PORT'] || 3000).to_i do
 end
 
 
-guard 'rspec', :version => 2 do
+guard 'rspec', version: 2, spring: true do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
