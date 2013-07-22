@@ -5,7 +5,7 @@ Whitesnake::Application.routes.draw do
 
   resource :user, only: [ :show ]
 
-  resources :repositories, only: [] do
+  resources :repositories, only: [], id: %r[[^/]+/[^/]+] do
     resource :job, only: [ :create, :show, :destroy ]
   end
 
