@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/intridea/omniauth-github.git
-  revision: 77cfd542d24ae8d75e77810fb816eef7abb2dd27
-  specs:
-    omniauth-github (1.1.0)
-      omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.1)
-
-GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
   revision: 9a0a31096ecee572638132d5ed94bc5500f74330
   specs:
@@ -142,6 +134,9 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
+    omniauth-github (1.1.1)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
@@ -245,7 +240,7 @@ DEPENDENCIES
   jquery-rails
   less-rails (~> 2.3.3)
   octokit
-  omniauth-github!
+  omniauth-github (~> 1.1.1)
   rack-livereload
   rails (= 4.0.0)
   rb-fsevent

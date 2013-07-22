@@ -1,10 +1,12 @@
 h1 Users#show
 p Find me in app/views/users/show.html.slim
 table.table.table-striped
-  tbody
+  tbody#repositories
     - current_user.each_repository do |repo|
       tr
         td= link_to repo[:full_name], repo[:html_url], rel: 'tooltip', title: repo[:description]
         td
-          .switch.switch-mini
-            input[type="checkbox"]
+          = form_tag repository_job_path(repo[:full_name]), id: "repository-#{repo[:full_name]}", class: 'repository-form', remote: true do
+            i.icon-spinner.icon-spin.icon-large.pull-right.hidden
+            .switch.switch-mini.hidden.pull-right
+              input type="checkbox" data-form-id="repository-#{repo[:name]}"

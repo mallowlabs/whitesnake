@@ -1,4 +1,8 @@
+require 'octokit_helper'
+
 class User < ActiveRecord::Base
+  include OctokitHelper::Model
+
   def self.from_omniauth(auth)
     user = where(auth.slice('provider', 'uid')).first || create_from_omniauth(auth)
     user.send :update_credentials, auth['credentials'] if user
@@ -15,7 +19,11 @@ class User < ActiveRecord::Base
 
   def each_repository(&block)
     return enum_for(:each_repository) unless block
-    octokit_client.repositories(self.name).each(&block)
+    octokit_client.repositories(nil, type: 'owner').each(&block)
+  end
+
+  def repository(name)
+    octokit_client.repository(owner: self.name, repo: name)
   end
 
   private
@@ -25,9 +33,5 @@ class User < ActiveRecord::Base
       self.token = credentials['token']
       save!
     end
-  end
-
-  def octokit_client
-    @octokit_client ||= Octokit::Client.new(oauth_token: self.token)
   end
 end
