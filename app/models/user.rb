@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
 
   def each_repository(&block)
     return enum_for(:each_repository) unless block
-    octokit_client.repositories(self.name).each(&block)
+    octokit_client.repositories(nil, type: 'owner').each(&block)
   end
 
   def repository(name)
