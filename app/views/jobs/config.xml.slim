@@ -19,8 +19,9 @@ project
       </hudson.plugins.git.UserRemoteConfig>
     branches
       <hudson.plugins.git.BranchSpec>
-        / TODO: substitute specified branch name
-        name = 'master'
+        - if job_setting['branches']['only']
+          - job_setting['branches']['only'].each do |branch|
+            name = branch
       </hudson.plugins.git.BranchSpec>
     disableSubmodules
       | false
@@ -84,9 +85,7 @@ project
   builders
     <hudson.tasks.Shell>
       command
-        = 'before_script'
-        = 'script'
-        = 'after_script'
+        = combined_scripts(job_setting)
     </hudson.tasks.Shell>
   publishers
     - if false
