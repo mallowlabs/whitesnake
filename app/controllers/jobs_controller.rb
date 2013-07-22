@@ -37,7 +37,7 @@ class JobsController < ApplicationController
 
   def fetch_job_setting
     @repository = octokit_client.repository(params[:repository_id])
-    response = octokit_client.content(params[:repository_id], path: 'whitesnake.yml')
+    response = octokit_client.content(params[:repository_id], path: '.whitesnake.yml')
     if response[:type] == 'file'
       case response[:encoding]
       when 'base64'
