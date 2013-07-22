@@ -4,6 +4,9 @@ defaults: &defaults
     client_id: <%= ENV['GITHUB_CLIENT_ID'] %>
     client_secret: <%= ENV['GITHUB_CLIENT_SECRET'] %>
     host: <%= ENV['GITHUB_HOST'] || 'github.com' %>
+  ci:
+    system: jenkins
+    site: https://localhost:8080/
 
 development:
   <<: *defaults
