@@ -1,4 +1,8 @@
+require 'octokit_helper'
+
 class User < ActiveRecord::Base
+  include OctokitHelper::Model
+
   def self.from_omniauth(auth)
     user = where(auth.slice('provider', 'uid')).first || create_from_omniauth(auth)
     user.send :update_credentials, auth['credentials'] if user
@@ -29,9 +33,5 @@ class User < ActiveRecord::Base
       self.token = credentials['token']
       save!
     end
-  end
-
-  def octokit_client
-    @octokit_client ||= Octokit::Client.new(oauth_token: self.token)
   end
 end
