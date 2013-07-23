@@ -3,7 +3,7 @@ Whitesnake::Application.routes.draw do
 
   get '/login' => redirect('/auth/github'), :as => :login
 
-  resource :user, only: [ :show ]
+  resource :profile, only: [ :show ]
 
   resources :repositories, only: [], id: %r[[^/]+/[^/]+] do
     resource :job, only: [ :create, :show, :destroy ]
