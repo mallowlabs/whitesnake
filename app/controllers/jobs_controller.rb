@@ -64,10 +64,7 @@ class JobsController < ApplicationController
   end
 
   def job_name(repository)
-    [
-      repository[:owner][:login],
-      repository[:name],
-    ].join('.')
+    view_context.job_name(repository)
   end
 
   def config_xml(job_setting, repository)
