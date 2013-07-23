@@ -7,8 +7,9 @@ class JobsController < ApplicationController
   before_action :fetch_job_setting, only: [ :create, :destroy ]
 
   def create
-    @response = Net::HTTP.start('localhost', 8080) do |http|
-      http.post("/createItem?name=#{CGI.escape @job_setting['name']}",
+    response = Net::HTTP.start('localhost', 8080) do |http|
+      job_name = job_name(@repository)
+      http.post("/createItem?name=#{CGI.escape job_name}",
                 config_xml(@job_setting, @repository).tap {|x| puts x},
                 'Content-Type' => 'text/xml')
     end
@@ -23,7 +24,8 @@ class JobsController < ApplicationController
 
   def destroy
     response = Net::HTTP.start('localhost', 8080) do |http|
-      http.post("/job/#{CGI.escape @job_setting['name']}/doDelete", '')
+      job_name = job_name(@repository)
+      http.post("/job/#{CGI.escape job_name}/doDelete", '')
     end
     case response
     when Net::HTTPSuccess, Net::HTTPRedirection
@@ -55,11 +57,14 @@ class JobsController < ApplicationController
 
   def default_job_setting(repository)
     {
-      'name'     => repository[:name],
       'branches' => %w[origin/master],
       'rbenv'    => %w[system],
       'script'   => %w[bundle && bundle exec rake spec],
     }
+  end
+
+  def job_name(repository)
+    view_context.job_name(repository)
   end
 
   def config_xml(job_setting, repository)

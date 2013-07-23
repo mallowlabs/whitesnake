@@ -10,11 +10,17 @@ jQuery ($) ->
     $(repo_switch).bootstrapSwitch('setActive', false)
     $(repo_switch).closest('form').submit()
 
-  switchChanged = (repo_switch) ->
+  configureForm = (repo_switch) ->
+    closest_form = $(repo_switch).closest('form')
     if ($(repo_switch).bootstrapSwitch('status'))
-      $(repo_switch).closest('form')[0].method = 'delete'
+      closest_form[0].method = 'delete'
+      closest_form.find('a.ci-link').removeClass('hidden')
     else
-      $(repo_switch).closest('form')[0].method = 'post'
+      closest_form[0].method = 'post'
+      closest_form.find('a.ci-link').addClass('hidden')
+
+  switchChanged = (repo_switch) ->
+    configureForm(repo_switch)
     $(repo_switch).on "switch-change", onSwitchChange
     $(repo_switch).bootstrapSwitch('setActive', true)
     setTimeout(->
@@ -37,4 +43,6 @@ jQuery ($) ->
       switchChanged(repo_switch)
     , 500)
 
-  $('#repositories .switch').removeClass('hidden')
+  $('#repositories .switch').each ->
+    configureForm(this)
+    $(this).removeClass('hidden')

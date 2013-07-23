@@ -15,4 +15,11 @@ PATH=~/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
     EOS
   end
+
+  def job_name(repository)
+    [
+      repository[:owner][:login],
+      repository[:name],
+    ].join('.')
+  end
 end
