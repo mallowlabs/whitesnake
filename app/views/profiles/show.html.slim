@@ -10,3 +10,5 @@ table.table.table-striped
             i.icon-spinner.icon-spin.icon-large.pull-right.hidden
             .switch.switch-mini.hidden.pull-right
               input type="checkbox" data-form-id="repository-#{repo[:name]}" checked=(job && true)
+            a.ci-link.pull-right.hidden href=(job && job['url']) title=(job && "Go to #{job['name']} job page")
+              i.icon-flag
