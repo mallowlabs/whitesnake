@@ -46,9 +46,8 @@ class JobsController < ApplicationController
         content = response[:content]
       end
       @job_setting = Psych.load(content)
-    else
-      @job_setting = default_job_setting(@repository)
     end
+    @job_setting = default_job_setting(@repository).update(@job_setting || {})
   rescue => error
     p error
     render json: { message: error.message }, status: 404
