@@ -106,20 +106,6 @@ matrix-project
               unhealthy = metric_target.unhealthy
               unstable = metric_target.unstable
       </hudson.publishers.rubyMetrics.rcov.RcovPublisher>
-    - if false
-      ruby-proxy-object
-        ruby-object ruby-class="Jenkins::Tasks::PublisherProxy" pluginid="jenkins-hipchat-publisher-ckpd"
-          pluginid ruby-class="String" pluginid="jenkins-hipchat-publisher-ckpd"
-            | jenkins-hipchat-publisher-ckpd
-          object ruby-class="HipchatPublisher" pluginid="jenkins-hipchat-publisher-ckpd"
-            exclude__success ruby-class="FalseClass" pluginid="jenkins-hipchat-publisher-ckpd"
-              | false
-            mention ruby-class="TrueClass" pluginid="jenkins-hipchat-publisher-ckpd"
-              | true
-            room ruby-class="String" pluginid="jenkins-hipchat-publisher-ckpd"
-              = hipchat_publisher_cookpad.room
-            token ruby-class="String" pluginid="jenkins-hipchat-publisher-ckpd"
-              = hipchat_publisher_cookpad.token
 
   buildWrappers
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.11">
