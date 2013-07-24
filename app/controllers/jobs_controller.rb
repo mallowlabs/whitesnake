@@ -7,9 +7,9 @@ class JobsController < ApplicationController
   before_action :fetch_job_setting, only: [ :create, :destroy ]
 
   def create
-    response = Net::HTTP.start('localhost', 8080) do |http|
+    response = Net::HTTP.start(Settings.ci_host, Settings.ci_port) do |http|
       job_name = job_name(@repository)
-      http.post("/createItem?name=#{CGI.escape job_name}",
+      http.post(File.join(Settings.ci_endpoint_path, "/createItem?name=#{CGI.escape job_name}"),
                 config_xml(@job_setting, @repository).tap {|x| puts x},
                 'Content-Type' => 'text/xml')
     end
@@ -23,9 +23,9 @@ class JobsController < ApplicationController
   end
 
   def destroy
-    response = Net::HTTP.start('localhost', 8080) do |http|
+    response = Net::HTTP.start(Settings.ci_host, Settings.ci_port) do |http|
       job_name = job_name(@repository)
-      http.post("/job/#{CGI.escape job_name}/doDelete", '')
+      http.post(File.join(Settings.ci_endpoint_path, "/job/#{CGI.escape job_name}/doDelete"), '')
     end
     case response
     when Net::HTTPSuccess, Net::HTTPRedirection

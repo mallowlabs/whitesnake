@@ -26,4 +26,20 @@ class Settings < Settingslogic
     return 'github.com' unless github_enterprise?
     URI.parse(github.site).select(:host, :port).join(':')
   end
+
+  def self.ci_host
+    ci_uri.host
+  end
+
+  def self.ci_port
+    ci_uri.port
+  end
+
+  def self.ci_endpoint_path
+    ci_uri.path
+  end
+
+  def self.ci_uri
+    URI.parse(ci.site)
+  end
 end
